@@ -27,6 +27,10 @@ int main(){
 	printf("\nEncrypted:\n");
 	toEncrypt(p,q,msg);
 	puts(msg);
+
+    	puts("decryption");	
+	toDecryption(String,p,q);
+	puts(String);
 	
     return 0;
 }
