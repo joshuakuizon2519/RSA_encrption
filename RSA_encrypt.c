@@ -7,37 +7,29 @@ void Decrypt(int p, int q, char msg[]);
 //int calcuMod(int c,int e,int n);
 
 int main(){
-    int p, q;
-    char msg[] = "love";
-	
-    printf("Give the first prime number: ");
-    scanf("%d", &p);
+    int p = 5, q = 7;
+    char msg[] = "RASTAMAN";
+	int i, j, x, size = strlen(msg);
 
-    printf("Give the second prime number: ");
-    scanf("%d", &q);
-
-    //printf("\nEnter message to encrypt: ");
-    //scanf("%s", &msg);
-
-	
-	
     printf("Prime numbers are %d and %d\n", p,q);
-    printf("%s", msg);
-
-	printf("\nEncrypted:\n");
+    printf("The message is :%s", msg);
+	
+	
+	printf("\nEncrypted:\t");
 	Encrypt(p,q,msg);
 	puts(msg);
 
-    printf("\nDecrypted:\n");
+    printf("\nDecrypted:\t");
 	Decrypt(p,q,msg);
 	puts(msg);
+
 	
     return 0;
 }
 
 void Encrypt(int p, int q, char msg[]){
 	int n , z, e, d;
-	int i, j, x;
+	int i, j, x, size = strlen(msg);
 	long long int mod = 1;
 
 	n=p*q;
@@ -49,25 +41,27 @@ void Encrypt(int p, int q, char msg[]){
 		}
 	}
 
-	for(i=0; i>0 ; i++){
-		if((e*1-1)%z == 0){
-			d = i;
+	for(j=n-1; j>0 ; j--){
+		i= j*e;
+		if((i-1)%z == 0){
+			d = j;
 		}	
 	}
-
-	for(i=0; msg[i]!='\0'; i++){
-		char c = msg[i];
+	
+	for(i=0; i<size; i++){
+		int c = msg[i]-96;	
+		mod = 1;
 		for(j=0; j < e; j++){
 			mod = mod * c;
-			mod = mod % n;
 		}
-		msg[i]=mod;	
+		mod = mod % n;
+		msg[i]=mod+96;	
 	}
 }
 
 void Decrypt(int p, int q, char msg[]){
 	int n , z, e, d;
-	int i, j, x;
+	int i, j, x, size = strlen(msg);
 	long long int mod = 1;
 
 	n=p*q;
@@ -85,13 +79,16 @@ void Decrypt(int p, int q, char msg[]){
 		}	
 	}
 
-	for(i=0; msg[i]!='\0'; i++){
-		char c = msg[i];
-		for(j=0; j < d; j++){
+	for(i=0; i<size; i++){
+		int c = msg[i]-96;	
+		mod = 1;
+		
+		for(j=0; j < e; j++){
 			mod = mod * c;
-			mod = mod % n;
 		}
-		msg[i]=mod;	
-	}
+
+		mod = mod % n;
+		msg[i]=mod+96;	
+	}	
 }
 
